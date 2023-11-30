@@ -18,20 +18,16 @@ const MyNavbar = ({auth, onAuth}) => {
     </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
-            <li><a>Lecturers</a></li>
-            <li><a>Enrolments</a></li>
-            { ( auth ) ? <li onClick={logout} className=' text-orange-600'><a>Logout</a></li>: "" }
-            <li>
-              <details>
-                <summary>
-                  Filter
-                </summary>
-                <ul className="p-2 bg-base-100">
-                  <li><a>Link 1</a></li>
-                  <li><a>Link 2</a></li>
-                </ul>
-              </details>
-            </li>
+          { ( auth ) ?  <Link to="/lecturers/home"><a className="btn btn-ghost text-l">Lecturers</a></Link>: <Link to="/"><a className="btn btn-ghost text-l">Lecturers</a></Link>}
+          { ( auth ) ?  <Link to="/enrolments/home"><a className="btn btn-ghost text-l">Enrolments</a></Link>: <Link to="/"><a className="btn btn-ghost text-l">Enrolments</a></Link>}
+            { ( auth ) ? <a onClick={logout} className='btn btn-warning text-l mr-3'>Logout</a>: "" }
+            
+            <select className="select select-bordered join-item">
+              <option option disabled selected>Filter</option>
+              <option>Sci-fi</option>
+               <option>Drama</option>
+              <option>Action</option>
+            </select>
           </ul>
         </div>
       </div>
