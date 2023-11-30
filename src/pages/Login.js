@@ -38,17 +38,6 @@ const Login = ({auth, onAuth}) => {
     }
 
     return(
-        // <div>
-        //     <h1 class="bg-primary">Welcome to the Login Page</h1>
-        // <div className="justify-center ">
-            
-        //     Email : <input onChange={handleLoginForm} type="text" name="email" value={form.email}/> <br/>
-        //     Password : <input onChange={handleLoginForm} type="password" name="password" value={form.password}/> <br/>
-
-        //     <button onClick={handleClick} >Login</button>
-        //     <p>{errorMessage}</p>
-        // </div>
-        // </div>
         <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
