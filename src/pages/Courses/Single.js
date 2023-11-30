@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import CourseHero from "../../components/CourseHero";
+import CourseHero from "../../components/Courses/CourseHero";
 import axios from "axios";
 
 const Single = () => {
@@ -27,7 +27,7 @@ const Single = () => {
     if(!course) return( <div className="flex justify-center items-center h-screen"><span className="loading loading-infinity"></span></div>);
 
     return(
-        <CourseHero title={course.title} code={course.code} description={course.description} level={course.level} points={course.points} />
+        <CourseHero title={course.title} code={course.code} description={course.description} level={course.level} points={course.points}  id={course.id} />
     )
 }
 export default Single;
