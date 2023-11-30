@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom'
-import {Link} from 'react-router-dom';
-import CourseCard from "../../components/CourseCard";
+import {useNavigate, Link} from 'react-router-dom'
+import CourseCard from "../../components/Courses/CourseCard";
 
 function Home({auth}) {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   let token = localStorage.getItem('token')
     
-
+  const removeCourse = (id) => {
+    let updatedCourses = courses.filter((course) => {
+        return course.id !== id;
+    })
+    setCourses(updatedCourses)
+}
 
  
 
@@ -32,7 +36,7 @@ function Home({auth}) {
 
   const coursesList = courses.map((course,i) => {
       return (
-         <CourseCard title={course.title} code={course.code} id={course.id} key={i} />
+         <CourseCard title={course.title} code={course.code} id={course.id} key={i} deleteCallback={removeCourse}  />
       )
   })
     return (
@@ -41,6 +45,7 @@ function Home({auth}) {
        navigate('/')
     ):(
       <>
+      <Link to={`/courses/create`}><a className="btn btn-success text-l ">Create</a></Link>
       <h1>Courses</h1>
        
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center">
