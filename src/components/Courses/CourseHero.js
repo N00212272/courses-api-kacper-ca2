@@ -1,6 +1,9 @@
-import {Link} from 'react-router-dom';
+
+import DeleteBtn from '../DeleteBtn';
+import { useNavigate, Link } from 'react-router-dom';
 
 const CourseHero = (props) => {
+  const navigate = useNavigate();
     return(
 
         <div className="hero min-h-screen bg-base-200 mt-3">
@@ -11,6 +14,10 @@ const CourseHero = (props) => {
             <p className="py-2"><b>Points estimation: </b>{props.points}</p>
             <p className="py-2"><b>Code: </b>{props.code}</p>
             <p className="py-2"><b>Level: </b>{props.level}</p>
+            <ul className='flex'>
+            <li className='mr-2'><DeleteBtn id={props.id} resource="courses" deleteCallback={() => navigate('/home')} /></li>
+            <li><Link to={`/courses/${props.id}/edit`}><button className='btn btn-info text-l'>Edit</button></Link></li>
+            </ul>
           </div>
         </div>
       </div>
