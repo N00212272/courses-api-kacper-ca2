@@ -1,5 +1,5 @@
-import {Link} from 'react-router-dom';
 
+import { Link} from 'react-router-dom';
 const CourseCard = (props) => {
     return(
 
@@ -10,6 +10,7 @@ const CourseCard = (props) => {
                         <div className="card-actions justify-end">
                             <Link to={`/courses/${props.id}`}><button className="btn btn-primary">More info</button></Link>
                         </div>
+                        
             </div>
         </div>
        
