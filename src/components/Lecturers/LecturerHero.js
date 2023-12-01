@@ -13,7 +13,7 @@ const LecturerHero = (props) => {
             <p className="py-2"><b>email: </b>{props.email}</p>
             <p className="py-2"><b>phone: </b>{props.phone}</p>
             <ul className='flex'>
-            <li className='mr-2'><DeleteBtn id={props.id} resource="lecturers" deleteCallback={() => navigate('/lecturers/home')} /></li>
+            <li className='mr-2'><DeleteBtn id={props.id} resource="lecturers" data={props.data}deleteCallback={() => navigate('/lecturers/home')} /></li>
             <li><Link to={`/lecturers/${props.id}/edit`}><button className='btn btn-info text-l'>Edit</button></Link></li>
             </ul>
           </div>
