@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from '../../config/Api';
 import {useNavigate, Link} from 'react-router-dom'
 import CourseCard from "../../components/Courses/CourseCard";
 
@@ -19,7 +19,7 @@ function Home({auth}) {
 
   useEffect(()=> {
       axios
-      .get('https://college-api.vercel.app/api/courses',{
+      .get('/courses',{
         headers: {
            'Authorization': `Bearer ${token}`
         }

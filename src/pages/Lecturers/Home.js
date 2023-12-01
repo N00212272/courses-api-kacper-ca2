@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from '../../config/Api';
 import {useNavigate, Link} from 'react-router-dom'
 import LecturerCard from "../../components/Lecturers/LecturerCard";
 
@@ -8,18 +8,18 @@ const Home = (auth) =>{
   const [lecturers, setLecturers] = useState([]);
   let token = localStorage.getItem('token')
     
-//   const removeLecturer = (id) => {
-//     let updatedLecturers = lecturers.filter((lecturer) => {
-//         return lecturer.id !== id;
-//     })
-//     setLecturers(updatedLecturers)
-// }
+  const removeLecturer = (id) => {
+    let updatedLecturers = lecturers.filter((lecturer) => {
+        return lecturer.id !== id;
+    })
+    setLecturers(updatedLecturers)
+}
 
  
 
   useEffect(()=> {
       axios
-      .get('https://college-api.vercel.app/api/lecturers',{
+      .get('/lecturers',{
         headers: {
            'Authorization': `Bearer ${token}`
         }
@@ -37,7 +37,7 @@ const Home = (auth) =>{
 
   const lecturersList = lecturers.map((lecturer,i) => {
       return (
-         <LecturerCard name={lecturer.name} email={lecturer.email} id={lecturer.id} key={i}  />
+         <LecturerCard name={lecturer.name} email={lecturer.email} id={lecturer.id} key={i} deleteCallback={removeLecturer} />
       )
   })
     return (

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from '../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
 const Edit = (auth) => {
@@ -34,7 +34,7 @@ const Edit = (auth) => {
     useEffect(()=> {
         let token = localStorage.getItem('token')
         axios
-        .get(`https://college-api.vercel.app/api/lecturers/${id}`, {
+        .get(`/lecturers/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -76,7 +76,7 @@ const Edit = (auth) => {
         console.log("submitted",form)
         if(isRequired(['name','address','email','phone'])){
         let token = localStorage.getItem('token');
-        axios.post('https://college-api.vercel.app/api/lecturers',form,{
+        axios.post('/lecturers',form,{
             headers: {
                 "Authorization":`Bearer ${token}`
             }

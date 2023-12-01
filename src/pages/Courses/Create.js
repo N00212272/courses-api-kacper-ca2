@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import axios from 'axios';
+import axios from '../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
 const Create = (auth) => {
@@ -48,7 +48,7 @@ const Create = (auth) => {
         console.log("submitted",form)
         if(isRequired(['title','description','code','level','points'])){
         let token = localStorage.getItem('token');
-        axios.post('https://college-api.vercel.app/api/courses',form,{
+        axios.post('/courses',form,{
             headers: {
                 "Authorization":`Bearer ${token}`
             }

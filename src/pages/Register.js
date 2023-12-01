@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../config/Api';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
@@ -14,7 +14,7 @@ const Register = ({onAuth}) => {
 
     const handleClick = () => {
 
-        axios.post('https://college-api.vercel.app/api/register', {
+        axios.post('/register', {
             name: form.name,
             email: form.email,
             password: form.password
