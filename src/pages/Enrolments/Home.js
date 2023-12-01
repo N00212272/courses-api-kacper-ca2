@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from '../../config/Api';
 import {useNavigate, Link} from 'react-router-dom'
 import EnrolmentCard from "../../components/Enrolments/EnrolmentCard";
 
@@ -8,18 +8,18 @@ const Home = (auth) =>{
   const [enrolments, setEnrolments] = useState([]);
   let token = localStorage.getItem('token')
     
-//   const removeEnrolments = (id) => {
-//     let updatedEnrolments = Enrolments.filter((Enrolment) => {
-//         return Enrolment.id !== id;
-//     })
-//     setEnrolments(updatedEnrolments)
-// }
+  const removeEnrolments = (id) => {
+    let updatedEnrolments = enrolments.filter((Enrolment) => {
+        return Enrolment.id !== id;
+    })
+    setEnrolments(updatedEnrolments)
+}
 
  
 
   useEffect(()=> {
       axios
-      .get('https://college-api.vercel.app/api/enrolments',{
+      .get('/enrolments',{
         headers: {
            'Authorization': `Bearer ${token}`
         }
@@ -27,6 +27,8 @@ const Home = (auth) =>{
       .then(response => {
         console.log(response.data.data)
         setEnrolments(response.data.data)
+        
+       
       })
       .catch(err => {
           console.error(err)
@@ -37,7 +39,7 @@ const Home = (auth) =>{
 
   const enrolmentsList = enrolments.map((enrolment,i) => {
       return (
-         <EnrolmentCard status={enrolment.status} course_id={enrolment.course_id} lecturer_id={enrolment.lecturer_id} id={enrolment.id} key={i}  />
+         <EnrolmentCard status={enrolment.status} course_id={enrolment.course_id} lecturer_id={enrolment.lecturer_id} id={enrolment.id} key={i} deleteCallback={removeEnrolments} />
       )
   })
     return (
@@ -51,6 +53,7 @@ const Home = (auth) =>{
        
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center">
         {enrolmentsList}
+        
         </div>
       </>
     )}
