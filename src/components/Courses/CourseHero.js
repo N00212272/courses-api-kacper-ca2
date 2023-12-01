@@ -15,7 +15,7 @@ const CourseHero = (props) => {
             <p className="py-2"><b>Code: </b>{props.code}</p>
             <p className="py-2"><b>Level: </b>{props.level}</p>
             <ul className='flex'>
-            <li className='mr-2'><DeleteBtn id={props.id} resource="courses" deleteCallback={() => navigate('/home')} /></li>
+            <li className='mr-2'><DeleteBtn id={props.id} resource="courses" data={props.data}deleteCallback={() => navigate('/home')} /></li>
             <li><Link to={`/courses/${props.id}/edit`}><button className='btn btn-info text-l'>Edit</button></Link></li>
             </ul>
           </div>
