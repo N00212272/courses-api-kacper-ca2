@@ -1,130 +1,185 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from '../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
 const Edit = (auth) => {
     const { id } = useParams();
-    const [lecturer, setlecturer] = useState(null);
-
-    
-
-    const errorStyle = {
-        color:'red',
-        fontStyle:'bold'
-    }
-    const [errors, setErrors] = useState()
-    const navigate = useNavigate()
-    const [form,setForm] = useState({
-        name:"",
-        address:"",
-        email:"",
-        phone:""
-    });
-
-    const handleForm = (e) => {
-        setForm(prevState => ({
-            ...prevState,
-            [e.target.name]:e.target.value
-        }))
-    }
-
+    const [courses, setCourses] = useState([]);
+    const [lecturers, setLecturers] = useState([]);
+    const [enrolment,setEnrolment] = useState(null);
+      const errorStyle = {
+          color:'red',
+          fontStyle:'bold'
+      }
+      const isRequired = (fields) => {
+          let included = true;
+          setErrors({})
+          fields.forEach(field => {
+              if(!form[field]){
+                  included = false;
+                  setErrors(prevState => ({
+                      ...prevState,
+                   [field]:{
+                      message:`${field} is required`
+                   }
+                  }))
+              }
+          });
+          return included;
+      }
   
-
-    useEffect(()=> {
-        let token = localStorage.getItem('token')
+      const [errors, setErrors] = useState()
+      const navigate = useNavigate()
+      const [form,setForm] = useState({
+          status:"",
+          course_id:"",
+          lecturer_id:"",
+          time:"",
+          date:""
+      });
+       //getting lecturers for dropdown
+      useEffect(()=> {
+        let token = localStorage.getItem('token');
         axios
-        .get(`https://college-api.vercel.app/api/lecturers/${id}`, {
+        .get('/courses',{
+          headers: {
+             'Authorization': `Bearer ${token}`
+          }
+        })
+        .then(response => {
+            setCourses(response.data.data)
+        })
+        .catch(err => {
+            console.error(err)
+        })
+      }, []);
+      //getting lecturers for dropdown
+      useEffect(()=> {
+        let token = localStorage.getItem('token');
+        axios
+        .get('/lecturers',{
+          headers: {
+             'Authorization': `Bearer ${token}`
+          }
+        })
+        .then(response => {
+            setLecturers(response.data.data)
+        })
+        .catch(err => {
+            console.error(err)
+        })
+      }, []);
+      useEffect(()=> {
+        let token = localStorage.getItem('token');
+        axios
+        .get(`/enrolments/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         })
         .then(response => {
+            setEnrolment(response.data.data)
+            console.log(response.data.data)
             setForm(response.data.data)
-            setlecturer(response.data.data)
         })
         .catch(err => {
             console.error(err)
         })
     }, [id]);
-    if(!lecturer) return( <div className="flex justify-center items-center h-screen"><span className="loading loading-infinity"></span></div>);
-
-    
-    const isRequired = (fields) => {
-        let included = true;
-        setErrors({})
-        fields.forEach(field => {
-            if(!form[field]){
-                included = false;
-                setErrors(prevState => ({
-                    ...prevState,
-                 [field]:{
-                    message:`${field} is required`
-                 }
-                }))
-            }
-        });
-        return included;
-    }
-
+    if(!enrolment) return( <div className="flex justify-center items-center h-screen"><span className="loading loading-infinity"></span></div>);
   
-   
-
+  
+      const handleForm = (e) => {
+          setForm(prevState => ({
+              ...prevState,
+              [e.target.name]:e.target.value
+          }))
+      }
+     
+  
+      
+      const submitForm = (e) => {
+          e.preventDefault();
+          console.log("submitted",form)
+          if(isRequired(['status','course_id','lecturer_id','date','time'])){
+          let token = localStorage.getItem('token');
+          axios.put('/enrolments',form,{
+              headers: {
+                  "Authorization":`Bearer ${token}`
+              }
+          })
+          .then(response => {
+              navigate('/enrolments/home')
+          })
+          .catch(err => {
+              console.error(err)
+          })
+  
+      }
+  }
+  //had to add the selected value within these maps to confirm which course/lecturer to displaying relating to ti
+  const courseOptions = courses.map((course) => {
+    return <option  value={course.id} selected={form.course_id === course.id} >{course.title}</option>
+  })
+  const lecturerOptions = lecturers.map((lecturer) => {
+    return <option  value={lecturer.id} selected={form.lecturer_id === lecturer.id}>{lecturer.name}</option>
+  })
+      return(
+      <div className='flex justify-center items-center h-screen'>
+         <form onSubmit={submitForm}>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Status</span>
+                  </label>
+                  <select name="status" id="status" value={form.status}  onChange={handleForm}>
+                    <option value="">Choose Status</option>
+                    <option value="interesed">Interested</option>
+                    <option value="assigned">Assigned</option>
+                    <option value="associate">Associate</option>
+                    <option value="career_break">Career Break</option>
+                  </select>
+                  <span style={errorStyle}>{errors?.status?.message}</span>
+                  </div>
+                  
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Course</span>
+                  </label>
+                  <select name="course_id" onChange={handleForm}>
+                  <option value="" >Choose a course</option>
+                    {courseOptions}
+                    </select> 
+                  <span style={errorStyle}>{errors?.course_id?.message}</span>
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Lecturers</span>
+                  </label>
+                  <select name="lecturer_id" onChange={handleForm}>
+                  <option value="">Choose a lecturer</option>
+                    {lecturerOptions}
+                    </select> 
+                  <span style={errorStyle}>{errors?.lecturer_id?.message}</span>
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Date</span>
+                  </label>
+                  <input type="date" onChange={handleForm} value={form.date} name="date" className="input input-bordered"  /><span style={errorStyle}>{errors?.date?.message}</span>
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Time</span>
+                  </label>
+                  <input type="time" onChange={handleForm} value={form.time} name="time" className="input input-bordered"  /><span style={errorStyle}>{errors?.time?.message}</span>
+                </div>
+                <input type='submit'/>
     
-    const submitForm = (e) => {
-        e.preventDefault();
-        console.log("submitted",form)
-        if(isRequired(['name','address','email','phone'])){
-        let token = localStorage.getItem('token');
-        axios.post('https://college-api.vercel.app/api/lecturers',form,{
-            headers: {
-                "Authorization":`Bearer ${token}`
-            }
-        })
-        .then(response => {
-            navigate('/lecturers/home')
-        })
-        .catch(err => {
-            console.error(err)
-        })
-
-    }
-}
-
-
-return(
-    <div className='flex justify-center items-center h-screen'>
-    <form onSubmit={submitForm}>
-           <div className="form-control">
-             <label className="label">
-               <span className="label-text">Name</span>
-             </label>
-             <input type="input" name="name" onChange={handleForm} value={form.name} className="input input-bordered"  /><span style={errorStyle}>{errors?.name?.message}</span>
-             </div>
-           <div className="form-control">
-             <label className="label">
-               <span className="label-text">Address</span>
-             </label>
-             <input type="text" onChange={handleForm} value={form.address} name="address" className="input input-bordered"  /><span style={errorStyle}>{errors?.address?.message}</span>
-           </div>
-           <div className="form-control">
-             <label className="label">
-               <span className="label-text">Email</span>
-             </label>
-             <input type="input" onChange={handleForm} value={form.email} name="email" className="input input-bordered"  /><span style={errorStyle}>{errors?.email?.message}</span>
-           </div>
-           <div className="form-control">
-             <label className="label">
-               <span className="label-text">Phone</span>
-             </label>
-             <input type="input" onChange={handleForm} value={form.phone} name="phone" className="input input-bordered"  /><span style={errorStyle}>{errors?.phone?.message}</span>
-           </div>
-           <input type='submit'/>
-
-           </form>
-           </div>
-
-    );
+                </form>
+                </div>
+  
+      );
 
 }
 export default Edit;
