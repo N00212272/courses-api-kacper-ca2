@@ -104,7 +104,7 @@ const Edit = (auth) => {
           console.log("submitted",form)
           if(isRequired(['status','course_id','lecturer_id','date','time'])){
           let token = localStorage.getItem('token');
-          axios.put('/enrolments',form,{
+          axios.put(`/enrolments/${id}`,form,{
               headers: {
                   "Authorization":`Bearer ${token}`
               }
