@@ -28,6 +28,12 @@ import MyNavBar from './components/MyNavBar';
 const App = () => {
   const [auth,setAuth] = useState(false);
   let routesProtected;
+  
+  const [term, setTerm] = useState("");
+  
+  const handleChange = (e) => {
+    setTerm(e.target.value);
+}
   useEffect(()=>{
     if(localStorage.getItem('token')){
       setAuth(true);
@@ -45,7 +51,7 @@ const App = () => {
   if(auth){
     routesProtected = (
     <>
-        <Route path='/home' element={<Home auth={auth}/>} />
+        <Route path='/home' element={<Home term={term} auth={auth}/>} />
         <Route path='/courses/:id' element={<SingleCourse auth={auth}/>} />
         <Route path='/courses/create' element={<CreateCourse auth={auth}/>} />
         <Route path='/courses/:id/edit' element={<EditCourse auth={auth}/>} />
@@ -67,7 +73,7 @@ const App = () => {
     
           
     <Router>
-      <MyNavBar onAuth={onAuth} auth={auth} />
+      <MyNavBar handleChange={handleChange} term={term} onAuth={onAuth} auth={auth} />
       <div className='container mx-auto'>
         <Routes>  
         
