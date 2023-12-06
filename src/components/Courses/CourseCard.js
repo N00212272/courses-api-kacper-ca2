@@ -6,7 +6,7 @@ const CourseCard = (props) => {
         <div className="card w-96 base-content shadow-xl  ">
             <div className="card-body">
                 <h2 className="card-title">{props.title}</h2>
-                     <p>{props.code}</p>
+                     <p>{props.points}</p>
                         <div className="card-actions justify-end">
                             <Link to={`/courses/${props.id}`}><button className="btn btn-primary">More info</button></Link>
                         </div>
