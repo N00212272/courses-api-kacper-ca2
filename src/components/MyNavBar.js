@@ -1,9 +1,14 @@
 import {Link, useNavigate} from 'react-router-dom';
 
-const MyNavbar = ({auth, onAuth}) => {
+const MyNavbar = ({auth, onAuth, term ,handleChange}) => {
 
     const navigate = useNavigate();
 
+    const handleInputChange = (e) => {
+      navigate('/home');
+      handleChange(e);
+  }
+  
     const logout = () => {
         onAuth(false);
         navigate('/');
@@ -13,9 +18,9 @@ const MyNavbar = ({auth, onAuth}) => {
         <div className="flex-1 ml-5">
         { ( auth ) ?  <Link to="/home"><a className="btn btn-ghost text-xl">Home</a></Link>: <Link to="/"><a className="btn btn-ghost text-xl">Home</a></Link>}
         </div>
-        <div className="form-control flex-1">
-      <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
-    </div>
+        <div className='flex-1 ml-5'>
+        <input type='text' placeholder="Search a Course...." onChange={handleInputChange} value={term} auth={auth}/>
+        </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
           { ( auth ) ?  <Link to="/lecturers/home"><a className="btn btn-ghost text-l">Lecturers</a></Link>: <Link to="/"><a className="btn btn-ghost text-l">Lecturers</a></Link>}
