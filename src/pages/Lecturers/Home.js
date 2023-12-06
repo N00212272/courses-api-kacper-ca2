@@ -25,7 +25,7 @@ const Home = (auth) =>{
         }
       })
       .then(response => {
-        console.log(response.data.data)
+        // console.log(response.data.data)
           setLecturers(response.data.data)
       })
       .catch(err => {
@@ -46,7 +46,7 @@ const Home = (auth) =>{
        navigate('/')
     ):(
       <>
-      <Link to={`/enrolments/create`}><a className="btn btn-success text-l ">Create</a></Link>
+      <Link to={`/lecturers/create`}><a className="btn btn-success text-l ">Create</a></Link>
       <h1>Lecturers</h1>
        
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center">
