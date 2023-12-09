@@ -28,7 +28,6 @@ const Home = (auth) =>{
         console.log(response.data.data)
         setEnrolments(response.data.data)
         
-       
       })
       .catch(err => {
           console.error(err)
@@ -39,7 +38,7 @@ const Home = (auth) =>{
 
   const enrolmentsList = enrolments.map((enrolment,i) => {
       return (
-         <EnrolmentCard status={enrolment.status} course_id={enrolment.course_id} lecturer_id={enrolment.lecturer_id} id={enrolment.id} key={i} deleteCallback={removeEnrolments} />
+         <EnrolmentCard status={enrolment.status} course={enrolment.course.title} lecturer={enrolment.lecturer.name} id={enrolment.id} key={i} deleteCallback={removeEnrolments} />
       )
   })
     return (
@@ -49,7 +48,7 @@ const Home = (auth) =>{
     ):(
       <>
       <Link to={`/enrolments/create`}><a className="btn btn-success text-l ">Create</a></Link>
-      <h1>Enrolments</h1>
+      <h1 className="text-center mb-8 text-3xl font-bold">Enrolments</h1>
        
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center">
         {enrolmentsList}
