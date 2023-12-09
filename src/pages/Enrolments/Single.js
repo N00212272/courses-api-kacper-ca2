@@ -28,7 +28,7 @@ const Single = () => {
     if(!enrolment) return( <div className="flex justify-center items-center h-screen"><span className="loading loading-infinity"></span></div>);
   
     return(
-        <EnrolmentHero id={enrolment.id} status={enrolment.status} time={enrolment.time} date={enrolment.date} course={enrolment.course.title} lecturer={enrolment.lecturer.name}
+        <EnrolmentHero id={enrolment.id} status={enrolment.status} time={enrolment.time} date={enrolment.date}  lecturer_id={enrolment.lecturer_id}course_id={enrolment.course_id} course={enrolment.course.title} lecturer={enrolment.lecturer.name}
          />
     )
   
