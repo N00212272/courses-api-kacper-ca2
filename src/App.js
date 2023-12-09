@@ -3,8 +3,9 @@ import {useState, useEffect} from 'react';
 // import pages
 import Login from './pages/Login';
 import Register from './pages/Register';
+import { Navigate } from "react-router-dom";
 
-
+import ViewUser from './pages/ViewUser';
 //courses
 import Home from './pages/Courses/Home';
 import SingleCourse from './pages/Courses/Single'
@@ -29,10 +30,14 @@ const App = () => {
   const [auth,setAuth] = useState(false);
   let routesProtected;
   
+  
   const [term, setTerm] = useState("");
   
   const handleChange = (e) => {
     setTerm(e.target.value);
+}
+const handleLChange = (e) => {
+  setTerm(e.target.value);
 }
   useEffect(()=>{
     if(localStorage.getItem('token')){
@@ -46,9 +51,12 @@ const App = () => {
     }
     else{
       localStorage.removeItem('token');
+      setAuth(false)
     }
   }
+ 
   if(auth){
+   
     routesProtected = (
     <>
         <Route path='/home' element={<Home term={term} auth={auth}/>} />
@@ -56,7 +64,7 @@ const App = () => {
         <Route path='/courses/create' element={<CreateCourse auth={auth}/>} />
         <Route path='/courses/:id/edit' element={<EditCourse auth={auth}/>} />
 
-        <Route path='/lecturers/home' element={<LecturersHome auth={auth}/>} />
+        <Route path='/lecturers/home' element={<LecturersHome term={term} auth={auth}/>} />
         <Route path='/lecturers/:id' element={<LecturersSingle auth={auth}/>} />
         <Route path='/lecturers/create' element={<LecturersCreate auth={auth}/>} />
         <Route path='/lecturers/:id/edit' element={<LecturersEdit auth={auth}/>} />
@@ -65,21 +73,26 @@ const App = () => {
         <Route path='/enrolments/:id' element={<EnrolmentsSingle auth={auth}/>} />
         <Route path='/enrolments/create' element={<EnrolmentsCreate auth={auth}/>} />
         <Route path='/enrolments/:id/edit' element={<EnrolmentsEdit auth={auth}/>} />
+        <Route path='/user' element={<ViewUser />} />
     </>
     )
   }
+  
+  
   return (
 
     
           
     <Router>
-      <MyNavBar handleChange={handleChange} term={term} onAuth={onAuth} auth={auth} />
+      <MyNavBar handleChange={handleChange} handleLChange={handleLChange} term={term} onAuth={onAuth} auth={auth} />
       <div className='container mx-auto'>
         <Routes>  
         
           <Route path='/' element={<Login auth={auth} onAuth={onAuth}/>} />
           <Route path='/register' element={<Register onAuth={onAuth} />} />
-          {routesProtected}
+          
+         {routesProtected}
+          
           
       </Routes>
       </div>
