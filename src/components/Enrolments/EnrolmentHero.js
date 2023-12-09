@@ -11,8 +11,8 @@ const EnrolmentHero = (props) => {
           <div>
             <h1 className="text-5xl font-bold">{props.status}</h1>
             {/* I had to do obj.values because it wouldnt show anything within this arrays */}
-            <p className="py-4"><b>Course: </b> {Object.values(props.course)}</p>
-            <p className="py-2"><b>Lecturer: </b> {Object.values(props.lecturer)}</p>
+            <Link to={`/courses/${props.course_id}`}><p className="py-4"><b>Course: </b> {props.course}</p></Link>
+            <Link to={`/lecturers/${props.lecturer_id}`}><p className="py-2"><b>Lecturer: </b>  {props.lecturer}</p></Link>
             <p className="py-2"><b>date: </b>{props.date}</p>
             <p className="py-2"><b>time: </b>{props.time}</p>
             <ul className='flex'>
