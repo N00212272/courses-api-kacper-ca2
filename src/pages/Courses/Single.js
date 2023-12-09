@@ -27,7 +27,7 @@ const Single = () => {
     if(!course) return( <div className="flex justify-center items-center h-screen"><span className="loading loading-infinity"></span></div>);
 
     return(
-        <CourseHero title={course.title} code={course.code} description={course.description} level={course.level} points={course.points}  id={course.id} data={course} />
+        <CourseHero title={course.title} code={course.code}  description={course.description} level={course.level} points={course.points}  id={course.id} data={course} />
     )
 }
 export default Single;
