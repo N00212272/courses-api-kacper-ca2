@@ -3,7 +3,7 @@ import { Link} from 'react-router-dom';
 const EnrolmentCard = (props) => {
     return(
         
-        <div className="card w-96 base-content shadow-xl  ">
+        <div className="card w-96 base-content shadow-xl rounded-badge ">
             
             <div className="card-body">
                 <h2 className="card-title">{props.status}</h2>

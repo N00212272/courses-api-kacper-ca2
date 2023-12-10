@@ -1,43 +1,41 @@
+// Import necessary dependencies
 import axios from '../config/Api';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
+// ViewUser component
 const ViewUser = () => {
+  // State to manage user data
+  const [user, setUser] = useState(null);
 
-   const [users,setUsers] = useState(null);
-   let token = localStorage.getItem('token')
-   useEffect(()=> {
+  // Get the token from local storage
+  let token = localStorage.getItem('token');
+
+  // Effect hook to fetch user data
+  useEffect(() => {
     axios
-    .get('/user',{
-      headers: {
-         'Authorization': `Bearer ${token}`
-      }
-    })
-    .then(response => {
-       setUsers(response.data)
-        
-    })
-    .catch(err => {
-        console.error(err)
-    })
+      .get('/user', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        setUser(response.data.user);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }, []);
-  console.log(users)
-  return(
-    
 
-
-
-        <div className="hero min-h-screen bg-base-200 mt-3">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div>
-            <h1 className="text-5xl font-bold">{users?.user?.name}</h1>
-            <p className="py-4">{users?.user?.email}</p>
-          </div>
-        </div>
-        </div>
-
-
-
+  // JSX structure for the ViewUser component
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="bg-white p-8 shadow-lg rounded-md">
+        <h1 className="text-3xl font-bold mb-4">Users name: {user?.name}</h1>
+        <p className="text-gray-600"><b>Current Email: </b>{user?.email}</p>
+      </div>
+    </div>
   );
-}
+};
 
-export default ViewUser;                           
+// Export the ViewUser component
+export default ViewUser;

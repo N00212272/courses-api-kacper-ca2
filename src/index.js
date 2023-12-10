@@ -5,9 +5,11 @@ import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <html data-theme="light">
   <React.StrictMode>
     <App />
   </React.StrictMode>
+  </html>
 );
 
 
