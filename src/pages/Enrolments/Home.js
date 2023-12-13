@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import axios from '../../config/Api';
 import { useNavigate, Link } from 'react-router-dom';
 import EnrolmentCard from "../../components/Enrolments/EnrolmentCard";
-
-const Home = (auth) => {
+import { useAuth } from "../../contexts/AuthProvider";
+const Home = () => {
+  const { auth } = useAuth();
   const navigate = useNavigate();
   const [enrolments, setEnrolments] = useState([]);
   let token = localStorage.getItem('token');

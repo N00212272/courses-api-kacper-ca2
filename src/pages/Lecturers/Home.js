@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import axios from '../../config/Api';
 import { useNavigate, Link } from 'react-router-dom';
 import LecturerCard from "../../components/Lecturers/LecturerCard";
-
-const Home = ({ auth, term }) => {
+import { useAuth } from "../../contexts/AuthProvider";
+const Home = ({ term }) => {
+  const { auth } = useAuth();
   // Hook to navigate between pages
   const navigate = useNavigate();
   // State to store the list of all lecturers

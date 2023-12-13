@@ -2,9 +2,11 @@
 import axios from '../config/Api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../contexts/AuthProvider';
 // Register component
-const Register = ({ onAuth }) => {
+const Register = () => {
+  const { onAuth } = useAuth();
+
   // State to manage form data
   const [form, setForm] = useState({});
 
@@ -28,9 +30,9 @@ const Register = ({ onAuth }) => {
       .catch(err => {
         console.error(err);
         setErrorMessage(err.response.data.message);
-
+        
         // If a user tries to use an email which is already taken, this message will come up
-        if (err.response && err.response.status === 422) {
+        if (err.response.status === 422) {
           setErrorMessage("This email has already been used");
         }
       });

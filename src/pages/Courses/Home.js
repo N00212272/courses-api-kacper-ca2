@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import axios from '../../config/Api';
 import { Link } from 'react-router-dom';
 import CourseCard from "../../components/Courses/CourseCard";
-
-function Home({ auth, term }) {
+import { useAuth } from "../../contexts/AuthProvider";
+function Home({term }) {
+  const { auth } = useAuth();
   // State variables using React hooks
   const [courses, setCourses] = useState([]);
   const [searchCourses, setSearchCourses] = useState([]);

@@ -1,8 +1,9 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-
-const MyNavbar = ({ auth, onAuth, term, handleChange, handleLChange }) => {
+import { useAuth} from '../contexts/AuthProvider';
+const MyNavbar = ({term, handleChange, handleLChange }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { auth, onAuth } = useAuth();
 
   // Function to handle input change for courses
   const handleInputChange = (e) => {

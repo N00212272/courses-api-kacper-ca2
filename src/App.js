@@ -1,6 +1,6 @@
 // Import necessary dependencies
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // Import pages
 import Login from './pages/Login';
@@ -29,10 +29,11 @@ import EnrolmentsEdit from './pages/Enrolments/Edit';
 import MyNavBar from './components/MyNavBar';
 import PageNotFound from './pages/PageNotFound';
 
+//authprovider 
+import { useAuth } from './contexts/AuthProvider';
 // App component
 const App = () => {
-  // State to manage authentication status
-  const [auth, setAuth] = useState(false);
+  const { auth} = useAuth();
 
   // State to manage search term
   const [term, setTerm] = useState("");
@@ -47,23 +48,7 @@ const App = () => {
     setTerm(e.target.value);
   };
 
-  // Effect hook to check authentication status on component mount
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      setAuth(true);
-    }
-  }, []);
 
-  // Function to handle authentication changes
-  const onAuth = (checked, token) => {
-    setAuth(checked);
-    if (checked) {
-      localStorage.setItem('token', token);
-    } else {
-      localStorage.removeItem('token');
-      setAuth(false);
-    }
-  };
 
   // Routes for authenticated users
   let routesProtected;
@@ -71,20 +56,20 @@ const App = () => {
   if (auth) {
     routesProtected = (
       <>
-        <Route path='/home' element={<Home term={term} auth={auth} />} />
-        <Route path='/courses/:id' element={<SingleCourse auth={auth} />} />
-        <Route path='/courses/create' element={<CreateCourse auth={auth} />} />
-        <Route path='/courses/:id/edit' element={<EditCourse auth={auth} />} />
+        <Route path='/home' element={<Home term={term}  />} />
+        <Route path='/courses/:id' element={<SingleCourse  />} />
+        <Route path='/courses/create' element={<CreateCourse  />} />
+        <Route path='/courses/:id/edit' element={<EditCourse  />} />
 
-        <Route path='/lecturers/home' element={<LecturersHome term={term} auth={auth} />} />
+        <Route path='/lecturers/home' element={<LecturersHome term={term} />} />
         <Route path='/lecturers/:id' element={<LecturersSingle auth={auth} />} />
-        <Route path='/lecturers/create' element={<LecturersCreate auth={auth} />} />
-        <Route path='/lecturers/:id/edit' element={<LecturersEdit auth={auth} />} />
+        <Route path='/lecturers/create' element={<LecturersCreate/>} />
+        <Route path='/lecturers/:id/edit' element={<LecturersEdit  />} />
 
-        <Route path='/enrolments/home' element={<EnrolmentsHome auth={auth} />} />
-        <Route path='/enrolments/:id' element={<EnrolmentsSingle auth={auth} />} />
-        <Route path='/enrolments/create' element={<EnrolmentsCreate auth={auth} />} />
-        <Route path='/enrolments/:id/edit' element={<EnrolmentsEdit auth={auth} />} />
+        <Route path='/enrolments/home' element={<EnrolmentsHome  />} />
+        <Route path='/enrolments/:id' element={<EnrolmentsSingle  />} />
+        <Route path='/enrolments/create' element={<EnrolmentsCreate  />} />
+        <Route path='/enrolments/:id/edit' element={<EnrolmentsEdit  />} />
         <Route path='/user' element={<ViewUser />} />
       </>
     );
@@ -92,17 +77,19 @@ const App = () => {
 
   // JSX structure for the App component
   return (
+   
     <Router>
-      <MyNavBar handleChange={handleChange} handleLChange={handleLChange} term={term} onAuth={onAuth} auth={auth} />
+      <MyNavBar handleChange={handleChange} handleLChange={handleLChange} />
       <div className='container mx-auto'>
         <Routes>
-          <Route path='/' element={<Login auth={auth} onAuth={onAuth} />} />
-          <Route path='/register' element={<Register onAuth={onAuth} />} />
+          <Route path='/' element={<Login  />} />
+          <Route path='/register' element={<Register />} />
           {routesProtected}
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </div>
     </Router>
+ 
   );
 };
 

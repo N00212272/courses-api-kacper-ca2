@@ -7,6 +7,8 @@ const Create = () => {
   const [courses, setCourses] = useState([]);
   const [lecturers, setLecturers] = useState([]);
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   // Error style for displaying error messages
   const errorStyle = {
     color: 'red',
@@ -27,6 +29,8 @@ const Create = () => {
           }
         }));
       }
+      
+
     });
     return included;
   };
@@ -56,6 +60,7 @@ const Create = () => {
       })
       .catch(err => {
         console.error(err);
+        
       });
 
     axios
@@ -97,6 +102,10 @@ const Create = () => {
         })
         .catch(err => {
           console.error(err);
+          setErrorMessage(err.response.data.message);
+        if (err.response.status === 422) {
+          setErrorMessage("This enrolment may already exist");
+        }
         });
     }
   };
@@ -165,9 +174,11 @@ const Create = () => {
             </label>
             <input type="time" onChange={handleForm} value={form.time} name="time" className="input input-bordered" /><span style={errorStyle}>{errors?.time?.message}</span>
           </div>
-
+          <p className='mb-1' style={errorStyle}>{errorMessage}</p>
           <input className="mt-4 font-bold" type='submit' />
+         
         </form>
+       
       </div>
     </div>
   );

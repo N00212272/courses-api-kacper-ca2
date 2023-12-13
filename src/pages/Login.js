@@ -3,9 +3,10 @@ import axios from '../config/Api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
+import { useAuth } from '../contexts/AuthProvider';
 // Login component
-const Login = ({ auth, onAuth }) => {
+const Login = () => {
+  const { onAuth } = useAuth();
   // State to manage form data
   const [form, setForm] = useState({
     email: "n00212272@gmail.com",
