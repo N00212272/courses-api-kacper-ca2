@@ -68,8 +68,8 @@ export default function DeleteBtn({ id, deleteCallback, resource, data }) {
         </button>
       ) : (
         <div>
-          <p>Are you sure you want to delete?</p>
-          <button className='btn btn-error' onClick={handleYes}>
+          <alert className="mr-2">Are you sure you want to delete?</alert>
+          <button className='btn btn-error mr-2' onClick={handleYes}>
             Yes
           </button>
           <button className='btn btn-success' onClick={handleNo}>
