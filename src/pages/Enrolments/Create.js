@@ -92,7 +92,8 @@ const Create = () => {
         }
       })
         .then(response => {
-          navigate('/enrolments/home');
+          const created = response.data.data
+          navigate(`/enrolments/${created.id}`);
         })
         .catch(err => {
           console.error(err);
@@ -114,7 +115,7 @@ const Create = () => {
     <div className="bg-base-200 rounded-xl">
       <h1 className="text-center mb-8 text-3xl font-bold mt-8 pt-5">Create an Enrolment</h1>
       <div className='flex justify-center items-center rounded-xl pb-5 '>
-        <form onSubmit={submitForm}>
+        <form onSubmit={submitForm}  className='w-56'>
           <div className="form-control">
             <label className="label">
               <span className="label-text">Status</span>

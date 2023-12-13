@@ -77,8 +77,8 @@ const Create = (auth) => {
         }
       })
         .then(response => {
-          // Redirect to the home page after successful submission
-          navigate('/lecturers/home');
+          const created = response.data.data
+          navigate(`/lecturers/${created.id}`);
         })
         .catch(err => {
           console.error(err);
@@ -91,7 +91,7 @@ const Create = (auth) => {
     <div className="bg-base-200 rounded-xl">
       <h1 className="text-center mb-8 text-3xl font-bold mt-8 pt-5">Create a Lecturer</h1>
       <div className='flex justify-center items-center rounded-xl pb-5'>
-        <form onSubmit={submitForm}>
+        <form onSubmit={submitForm}  className='w-56'>
           <div className="form-control">
             <label className="label">
               <span className="label-text">Name</span>
