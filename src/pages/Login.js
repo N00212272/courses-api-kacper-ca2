@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const Login = ({ auth, onAuth }) => {
   // State to manage form data
   const [form, setForm] = useState({
-    email: "n00212272@iadt.ie",
+    email: "n00212272@gmail.com",
     password: "Secret123"
   });
 
