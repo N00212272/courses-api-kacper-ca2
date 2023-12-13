@@ -3,7 +3,7 @@ import { Link} from 'react-router-dom';
 const CourseCard = (props) => {
     return(
 
-        <div className="card w-96 base-content shadow-xl rounded-badge  ">
+        <div className="card base-content shadow-xl bordered rounded-badge  ">
             <div className="card-body">
                 <h2 className="card-title">{props.title}</h2>
                      <p><b>Points: </b>{props.points}</p>
