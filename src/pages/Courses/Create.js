@@ -34,7 +34,7 @@ const Create = () => {
           }
         }));
         // Additional condition: points must be greater than or equal to 100
-      } else if (field === 'points' && parseInt(form[field]) < 100) {
+      } else if (form.points < 100) {
         included = false;
         setErrors(prevState => ({
           ...prevState,
@@ -43,7 +43,7 @@ const Create = () => {
           }
         }));
       // Additional condition: level must be greater than or equal to 7
-      } else if (field === 'level' && parseInt(form[field]) < 7) {
+      } else if (form.level < 7) {
         included = false;
         setErrors(prevState => ({
           ...prevState,
