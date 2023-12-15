@@ -6,7 +6,7 @@ const AuthContext = createContext();
 // Create a provider component
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(false);
-
+  const [alertVisible, setAlertVisible] = useState(false);
   // Effect hook to check authentication status on component mount
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -20,6 +20,10 @@ const AuthProvider = ({ children }) => {
     setAuth(checked);
     if (checked) {
       localStorage.setItem('token', token);
+      setAlertVisible(true);
+      setTimeout(() => {
+        setAlertVisible(false);
+      }, 3000);
     } else {
       localStorage.removeItem('token');
     }
@@ -29,6 +33,7 @@ const AuthProvider = ({ children }) => {
   const contextValue = {
     auth,
     onAuth,
+    alertVisible,
   };
 
   // Provide the context value to the components in the tree
