@@ -113,16 +113,19 @@ function Home({term }) {
             {welcomeMessage}
           </div>
         )}
-        <div className="mt-5 mb-3">
-          <label htmlFor="sortOrder">Sort Order: </label>
+        <div className="mt-5 mb-3 flex justify-between items-center">
+        <div>
+        <Link to={`/courses/create`}><a className="btn btn-success text-l">Create</a></Link></div>
+          <div className="flex justify-end items-center">
+          <label htmlFor="sortOrder"><b>Sort Order: </b></label>
           <select id="sortOrder" onChange={(e) => handleSortOrderChange(e.target.value)}>
             <option value="points:desc"><b>Highest-Lowest Points</b></option>
             <option value="points:asc"><b>Lowest-Highest Points</b></option>
             <option value="level:asc"><b>Lowest-Highest Level</b></option>
             <option value="level:desc"><b>Highest-Lowest Level</b></option>
           </select>
-        </div>
-        <Link to={`/courses/create`}><a className="btn btn-success text-l">Create</a></Link>
+          </div>
+          </div>
         <h1 className="text-center mb-8 text-3xl font-bold">Courses</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center">
           {coursesList}

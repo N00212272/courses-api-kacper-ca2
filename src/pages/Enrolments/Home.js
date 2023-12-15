@@ -63,7 +63,7 @@ const Home = () => {
         navigate('/')
       ) : (
         <>
-          <Link to={`/enrolments/create`}><a className="btn btn-success text-l ">Create</a></Link>
+          <Link to={`/enrolments/create`}><a className="btn btn-success text-l mt-5 mb-3 ">Create</a></Link>
           <h1 className="text-center mb-8 text-3xl font-bold">Enrolments</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center">
             {enrolmentsList}
