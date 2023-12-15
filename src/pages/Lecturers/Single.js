@@ -61,7 +61,7 @@ const Single = () => {
       phone={lecturer.phone}
       data={lecturer}
       enrolments={enrolmentIds}
-      backgroundImage={backgroundImage && backgroundImage.photos && backgroundImage.photos[0].src.landscape}
+      backgroundImage={backgroundImage && backgroundImage.photos && backgroundImage.photos[0] && backgroundImage.photos[0].src  && backgroundImage.photos[0].src.landscape}
     />
   );
 }
