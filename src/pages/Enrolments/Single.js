@@ -4,6 +4,7 @@ import EnrolmentHero from "../../components/Enrolments/EnrolmentHero";
 import axios from '../../config/Api';
 
 const Single = () => {
+    const [college,image] = axios;
     // Access the 'id' parameter from the route
     const { id } = useParams();
 
@@ -14,7 +15,7 @@ const Single = () => {
     useEffect(() => {
         let token = localStorage.getItem('token');
 
-        axios
+        college
             .get(`/enrolments/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`

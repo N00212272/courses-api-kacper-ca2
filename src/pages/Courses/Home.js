@@ -12,6 +12,7 @@ function Home({term }) {
   const [user, setUser] = useState(null);
   const [alertVisible, setAlertVisible] = useState(false);
   const [criteria, setCriteria] = useState("points");
+  const [college,image] = axios;
 
   // Token to allow the user to view pages
   let token = localStorage.getItem('token');
@@ -31,7 +32,7 @@ function Home({term }) {
 
   // Fetch user information when the component mounts
   useEffect(() => {
-    axios
+    college
       .get('/user', {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -74,7 +75,7 @@ function Home({term }) {
   };
 
   useEffect(() => {
-    axios
+    college
       .get('/courses', {
         headers: {
           'Authorization': `Bearer ${token}`

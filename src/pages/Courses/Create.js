@@ -3,6 +3,7 @@ import axios from '../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
+  const [college,image] = axios;
   // Error style for displaying error messages
   const errorStyle = {
     color: 'red',
@@ -70,7 +71,7 @@ const Create = () => {
     console.log("submitted", form);
     if (isRequired(['title', 'description', 'code', 'level', 'points'])) {
       let token = localStorage.getItem('token');
-      axios.post('/courses', form, {
+      college.post('/courses', form, {
         headers: {
           "Authorization": `Bearer ${token}`
         }

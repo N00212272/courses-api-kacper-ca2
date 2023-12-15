@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import axios from '../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
-const Edit = (auth) => {
+const Edit = () => {
+  const [college,image] = axios;
   // Extracting the 'id' parameter from the URL
   const { id } = useParams();
   // State to store the lecturer data
@@ -38,7 +39,7 @@ const Edit = (auth) => {
   // Effect to fetch lecturer data when the component mounts
   useEffect(() => {
     let token = localStorage.getItem('token')
-    axios
+    college
       .get(`/lecturers/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -100,7 +101,7 @@ const Edit = (auth) => {
     // If form validation passes, make an API call
     if (isRequired(['name', 'address', 'email', 'phone'])) {
       let token = localStorage.getItem('token');
-      axios.post('/lecturers', form, {
+      college.post('/lecturers', form, {
         headers: {
           "Authorization": `Bearer ${token}`
         }

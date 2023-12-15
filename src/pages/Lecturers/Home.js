@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import LecturerCard from "../../components/Lecturers/LecturerCard";
 import { useAuth } from "../../contexts/AuthProvider";
 const Home = ({ term }) => {
+  const [college,image] = axios;
   const { auth } = useAuth();
   // Hook to navigate between pages
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const Home = ({ term }) => {
   // Effect to fetch the list of lecturers when the component mounts
   useEffect(() => {
     let token = localStorage.getItem('token');
-    axios
+    college
       .get('/lecturers', {
         headers: {
           'Authorization': `Bearer ${token}`

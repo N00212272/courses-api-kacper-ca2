@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import EnrolmentCard from "../../components/Enrolments/EnrolmentCard";
 import { useAuth } from "../../contexts/AuthProvider";
 const Home = () => {
+  const [college,image] = axios;
   const { auth } = useAuth();
   const navigate = useNavigate();
   const [enrolments, setEnrolments] = useState([]);
@@ -19,7 +20,7 @@ const Home = () => {
 
   // Fetch enrolments data from the API
   useEffect(() => {
-    axios
+    college
       .get('/enrolments', {
         headers: {
           'Authorization': `Bearer ${token}`

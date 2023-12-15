@@ -3,6 +3,7 @@ import axios from '../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
+  const [college,image] = axios;
   // State variables using React hooks
   const [courses, setCourses] = useState([]);
   const [lecturers, setLecturers] = useState([]);
@@ -49,7 +50,7 @@ const Create = () => {
   // Fetching courses and lecturers data from the API
   useEffect(() => {
     let token = localStorage.getItem('token');
-    axios
+    college
       .get('/courses', {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -63,7 +64,7 @@ const Create = () => {
         
       });
 
-    axios
+    college
       .get('/lecturers', {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -91,7 +92,7 @@ const Create = () => {
     console.log("submitted", form);
     if (isRequired(['status', 'course_id', 'lecturer_id', 'date', 'time'])) {
       let token = localStorage.getItem('token');
-      axios.post('/enrolments', form, {
+      college.post('/enrolments', form, {
         headers: {
           "Authorization": `Bearer ${token}`
         }

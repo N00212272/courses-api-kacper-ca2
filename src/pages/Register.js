@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 // Register component
 const Register = () => {
+  const [college,image] = axios;
   const { onAuth } = useAuth();
 
   // State to manage form data
@@ -18,7 +19,7 @@ const Register = () => {
 
   // Function to handle registration process
   const handleClick = () => {
-    axios.post('/register', {
+    college.post('/register', {
       name: form.name,
       email: form.email,
       password: form.password

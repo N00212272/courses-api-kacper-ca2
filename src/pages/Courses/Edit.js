@@ -4,6 +4,7 @@ import axios from '../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
 const Edit = () => {
+  const [college,image] = axios;
   // useParams to extract 'id' parameter from the route
   const { id } = useParams();
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const Edit = () => {
   // Fetches course details to prefill the form
   useEffect(() => {
     let token = localStorage.getItem('token');
-    axios
+    college
       .get(`/courses/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -102,7 +103,7 @@ const Edit = () => {
     if (isRequired(['title', 'description', 'code', 'level', 'points'])) {
       let token = localStorage.getItem('token');
       // Submits and edits the course with form
-      axios.put(`/courses/${id}`, form, {
+      college.put(`/courses/${id}`, form, {
         headers: {
           "Authorization": `Bearer ${token}`
         }

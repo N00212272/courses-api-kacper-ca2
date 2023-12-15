@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 // Login component
 const Login = () => {
+  const [college,image] = axios;
   const { onAuth } = useAuth();
   // State to manage form data
   const [form, setForm] = useState({
@@ -21,7 +22,7 @@ const Login = () => {
 
   // Click handler for login button
   const handleClick = () => {
-    axios.post('/login', {
+    college.post('/login', {
       email: form.email,
       password: form.password
     })

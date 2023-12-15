@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 // ViewUser component
 const ViewUser = () => {
+  const [college,image] = axios;
   // State to manage user data
   const [user, setUser] = useState(null);
 
@@ -12,7 +13,7 @@ const ViewUser = () => {
 
   // Effect hook to fetch user data
   useEffect(() => {
-    axios
+    college
       .get('/user', {
         headers: {
           'Authorization': `Bearer ${token}`

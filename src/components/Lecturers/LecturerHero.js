@@ -24,6 +24,7 @@ const LecturerHero = (props) => {
   return (
     <div className="hero min-h-screen base-content shadow-xl mt-5 rounded-box">
       <div className="hero-content flex-col lg:flex-row-reverse">
+      <img src={props.backgroundImage} className="max-w-sm rounded-lg shadow-2xl"/>
         <div>
           {/* Lecturer details */}
           <h1 className="text-5xl font-bold mb-3">{props.name}</h1>
@@ -32,24 +33,28 @@ const LecturerHero = (props) => {
           <p className="py-2"><b>Phone: </b>{props.phone}</p>
 
           {/* Enrolment Dropdown and View Button */}
-          <div className="flex py-2 ">
-            <label name="enrolmentDropdown" className="mr-2 py-3"><b>Enrolment ID: </b></label>
-            <select
-              onChange={(e) => handleEnrolmentSelect(e.target.value)}
-              value={selectedEnrolment || ''}
-            >
-              <option value="" disabled>Select Enrolment</option>
-              {/* Map through enrolments and create options */}
-              {props.enrolments.map(enrolment => (
-                <option key={enrolment} value={enrolment}>{enrolment}</option>
-              ))}
-            </select>
+          {props.enrolments.length <= 0 ? (
+  <p className='mb-2'><b>Looks like there are no enrolments</b></p>
+) : (
+  <div className="flex py-2">
+    <label name="enrolmentDropdown" className="mr-2 py-3"><b>Enrolment ID: </b></label>
+    <select
+      onChange={(e) => handleEnrolmentSelect(e.target.value)}
+      value={selectedEnrolment || ''}
+    >
+      <option value="" disabled>Select Enrolment</option>
+      {/* Map through enrolments and create options */}
+      {props.enrolments.map(enrolment => (
+        <option key={enrolment} value={enrolment}>{enrolment}</option>
+      ))}
+    </select>
 
-            {/* View Enrolment Button */}
-            <button onClick={handleViewEnrolment} className="btn btn-info text-sm ml-2">
-              View
-            </button>
-          </div>
+    {/* View Enrolment Button */}
+    <button onClick={handleViewEnrolment} className="btn btn-info text-sm ml-2">
+      View
+    </button>
+  </div>
+)}
 
           {/* Edit and Delete Buttons */}
           <ul className='flex'>
