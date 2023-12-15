@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 import CourseCard from "../../components/Courses/CourseCard";
 import { useAuth } from "../../contexts/AuthProvider";
 function Home({term }) {
-  const { auth } = useAuth();
+  const { auth, alertVisible } = useAuth();
   // State variables using React hooks
   const [courses, setCourses] = useState([]);
   const [searchCourses, setSearchCourses] = useState([]);
   const [sortOrder, setSortOrder] = useState('desc');
   const [user, setUser] = useState(null);
-  const [alertVisible, setAlertVisible] = useState(false);
   const [criteria, setCriteria] = useState("points");
   const [college,image] = axios;
 
@@ -40,11 +39,6 @@ function Home({term }) {
       })
       .then(response => {
         setUser(response.data);
-        // Alert to come up once the user is logged in
-        setAlertVisible(true);
-        setTimeout(() => {
-          setAlertVisible(false);
-        }, 3000);
       })
       .catch(err => {
         console.error(err);
