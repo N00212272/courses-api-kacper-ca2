@@ -24,7 +24,9 @@ const LecturerHero = (props) => {
   return (
     <div className="hero min-h-screen base-content shadow-xl mt-5 rounded-box">
       <div className="hero-content flex-col lg:flex-row-reverse">
-      <img src={props.backgroundImage} className="max-w-sm rounded-lg shadow-2xl"/>
+      {(props.backgroundImage)?(<img src={props.backgroundImage} className="max-w-sm rounded-lg shadow-2xl"/>):(<div className="max-w-sm rounded-lg shadow-2xl">
+        <span className="loading loading-infinity"></span>
+      </div>)}
         <div>
           {/* Lecturer details */}
           <h1 className="text-5xl font-bold mb-3">{props.name}</h1>
