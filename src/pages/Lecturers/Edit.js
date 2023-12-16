@@ -52,7 +52,7 @@ const Edit = () => {
       })
       .catch(err => {
         console.error(err)
-        setErrorMessage(Object.values(err.response.data.errors));
+       
       })
   }, [id]);
 
@@ -115,6 +115,7 @@ const Edit = () => {
         })
         .catch(err => {
           console.error(err)
+          setErrorMessage(Object.values(err.response.data.errors));
         })
     }
   }
