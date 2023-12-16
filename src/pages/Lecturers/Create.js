@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
   const [college,image] = axios;
+  const [errorMessage, setErrorMessage] = useState("");
   // Styling for displaying errors
   const errorStyle = {
     color: 'red',
@@ -84,6 +85,7 @@ const Create = () => {
         })
         .catch(err => {
           console.error(err);
+          setErrorMessage(Object.values(err.response.data.errors));
         });
     }
   };
@@ -118,6 +120,7 @@ const Create = () => {
             </label>
             <input type="number" onChange={handleForm} value={form.phone} name="phone" className="input input-bordered" /><span style={errorStyle}>{errors?.phone?.message}</span>
           </div>
+          <p className='mb-1' style={errorStyle}>{errorMessage}</p>
           <input className="mt-4 font-bold" type='submit' />
         </form>
       </div>

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Edit = () => {
   const [college,image] = axios;
+  const [errorMessage, setErrorMessage] = useState("");
   // Extracting the 'id' parameter from the URL
   const { id } = useParams();
   // State to store the lecturer data
@@ -51,6 +52,7 @@ const Edit = () => {
       })
       .catch(err => {
         console.error(err)
+        setErrorMessage(Object.values(err.response.data.errors));
       })
   }, [id]);
 
@@ -147,6 +149,7 @@ const Edit = () => {
             </label>
             <input type="input" onChange={handleForm} value={form.phone} name="phone" className="input input-bordered" /><span style={errorStyle}>{errors?.phone?.message}</span>
           </div>
+          <p className='mb-1' style={errorStyle}>{errorMessage}</p>
           <input className="mt-4 font-bold" type='submit' />
         </form>
       </div>
