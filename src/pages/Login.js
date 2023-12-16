@@ -35,7 +35,7 @@ const Login = () => {
     .catch(err => {
       console.error(err);
       // Set error message on login failure
-      setErrorMessage(err.response.data.message);
+      setErrorMessage(Object.values(err.response.data.error));
     });
   }
 
@@ -73,7 +73,7 @@ const Login = () => {
             </div>
             <div className="form-control mt-6">
               <button onClick={handleClick} className="btn btn-primary">Login</button>
-              <p>{errorMessage}</p>
+              <p className="text-red-500 mt-2">{errorMessage}</p>
             </div>
           </div>
         </div>

@@ -30,12 +30,9 @@ const Register = () => {
       })
       .catch(err => {
         console.error(err);
-        setErrorMessage(err.response.data.message);
+        setErrorMessage(Object.values(err.response.data));
         
         // If a user tries to use an email which is already taken, this message will come up
-        if (err.response.status === 422) {
-          setErrorMessage("This email has already been used");
-        }
       });
   };
 
@@ -77,6 +74,7 @@ const Register = () => {
         <div className="form-control mt-6">
           <button onClick={handleClick} className="btn btn-primary w-full">Register</button>
           {/* Display error message, if any */}
+          
           <p className="text-red-500 mt-2">{errorMessage}</p>
         </div>
       </div>
