@@ -73,6 +73,7 @@ const Edit = () => {
             message: `${field} is required`
           }
         }))
+          //.test is a js method to test whether the string matchs a pattern
       } else if (field === 'email' && !emailRegex.test(form.email)) {
         included = false;
         setErrors(prevState => ({

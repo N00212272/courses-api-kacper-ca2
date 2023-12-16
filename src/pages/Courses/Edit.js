@@ -76,7 +76,7 @@ const Edit = () => {
             message: `${field} is required`
           }
         }));
-      } else if (field === 'points' && parseInt(form[field]) < 100) {
+      } else if (field === 'points' && form.field < 100) {
         included = false;
         setErrors((prevState) => ({
           ...prevState,
@@ -84,7 +84,7 @@ const Edit = () => {
             message: `${field} must be a number greater than or equal to 100`
           }
         }));
-      } else if (field === 'level' && parseInt(form[field]) < 7) {
+      } else if (field === 'level' &&form.field < 7) {
         included = false;
         setErrors((prevState) => ({
           ...prevState,
