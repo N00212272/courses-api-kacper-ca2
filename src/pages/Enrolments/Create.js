@@ -103,10 +103,8 @@ const Create = () => {
         })
         .catch(err => {
           console.error(err);
-          setErrorMessage(err.response.data.message);
-        if (err.response.status === 422) {
-          setErrorMessage("This enrolment may already exist");
-        }
+          setErrorMessage(Object.values(err.response.data.errors));
+          
         });
     }
   };

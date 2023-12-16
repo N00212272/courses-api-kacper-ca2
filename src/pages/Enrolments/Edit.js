@@ -13,6 +13,8 @@ const Edit = () => {
   const [lecturers, setLecturers] = useState([]);
   const [enrolment, setEnrolment] = useState(null);
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   // Error style for displaying error messages
   const errorStyle = {
     color: 'red',
@@ -127,6 +129,7 @@ const Edit = () => {
         })
         .catch(err => {
           console.error(err);
+          setErrorMessage(Object.values(err.response.data.errors));
         });
     }
   };
@@ -201,7 +204,7 @@ const Edit = () => {
             <input type="time" onChange={handleForm} value={form.time} name="time" className="input input-bordered" />
             <span style={errorStyle}>{errors?.time?.message}</span>
           </div>
-
+          <p className='mb-1' style={errorStyle}>{errorMessage}</p>
           <input className="mt-4 font-bold" type='submit' />
         </form>
       </div>
