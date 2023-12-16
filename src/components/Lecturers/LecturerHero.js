@@ -36,7 +36,7 @@ const LecturerHero = (props) => {
 
           {/* Enrolment Dropdown and View Button */}
           {props.enrolments.length <= 0 ? (
-  <p className='mb-2'><b>Looks like there are no enrolments</b></p>
+  <Link to={'/enrolments/create'}><p className='mb-2'><b>Looks like there are no enrolments</b>Add an Enrolment</p></Link>
 ) : (
   <div className="flex py-2">
     <label name="enrolmentDropdown" className="mr-2 py-3"><b>Enrolment ID: </b></label>
